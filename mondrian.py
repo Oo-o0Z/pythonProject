@@ -28,7 +28,7 @@ from utils.utility import cmp_value, value, merge_qi_value
 from functools import cmp_to_key
 
 # warning all these variables should be re-inited, if
-# you want to run mondrian with different parameters
+# you want to run mondrian with different parameters 当需要使用此模型来运行不同的参数时，这些变量需要重新初始化
 __DEBUG = False
 QI_LEN = 10
 GL_K = 0
@@ -41,11 +41,11 @@ QI_ORDER = []
 class Partition(object):
 
     """
-    Class for Group (or EC), which is used to keep records
-    self.member: records in group
-    self.low: lower point, use index to avoid negative values
+    Class for Group (or EC), which is used to keep records 用于保存记录的组
+    self.member: records in group 组中的记录
+    self.low: lower point, use index to avoid negative values 对于过高或者过低的点，使用索引来避免负值
     self.high: higher point, use index to avoid negative values
-    self.allow: show if partition can be split on this QI
+    self.allow: show if partition can be split on this QI 
     """
 
     def __init__(self, data, low, high):
@@ -60,12 +60,14 @@ class Partition(object):
     def add_record(self, record, dim):
         """
         add one record to member
+        将一个记录传到member
         """
         self.member.append(record)
 
     def add_multiple_record(self, records, dim):
         """
         add multiple records (list) to partition
+        将多个记录传到一个分块中
         """
         for record in records:
             self.add_record(record, dim)
@@ -81,6 +83,7 @@ def get_normalized_width(partition, index):
     """
     return Normalized width of partition
     similar to NCP
+    返回正常数据的数值范围 高-低
     """
     d_order = QI_ORDER[index]
     width = value(d_order[partition.high[index]]) - value(d_order[partition.low[index]])
@@ -92,6 +95,7 @@ def get_normalized_width(partition, index):
 def choose_dimension(partition):
     """
     choose dim with largest norm_width from all attributes.
+    选择所有分组中范围范围最大的，作为其他所有分组的属性
     This function can be upgraded with other distance function.
     """
     max_width = -1
@@ -111,6 +115,7 @@ def choose_dimension(partition):
 def frequency_set(partition, dim):
     """
     get the frequency_set of partition on dim
+    统计分组中每个dim出现的次数
     """
     frequency = {}
     for record in partition.member:
@@ -124,6 +129,7 @@ def frequency_set(partition, dim):
 def find_median(partition, dim):
     """
     find the middle of the partition, return split_val
+    找到分组的中间值
     """
     # use frequency set to get median
     frequency = frequency_set(partition, dim)
@@ -160,7 +166,7 @@ def find_median(partition, dim):
 
 def anonymize_strict(partition):
     """
-    recursively partition groups until not allowable
+    recursively partition groups until not allowable 递归的进行分组，直到条件不允许
     """
     allow_count = sum(partition.allow)
     # only run allow_count times
@@ -310,7 +316,7 @@ def mondrian(data, k, relax=False, QI_num=-1):
     k: k parameter for k-anonymity
     QI_num: Default -1, which exclude the last column. Othewise, [0, 1,..., QI_num - 1]
             will be anonymized, [QI_num,...] will be excluded.
-    relax: determine use strict or relaxed mondrian,
+    relax: determine use strict or relaxed mondrian,有两种mondrian算法，严格或者宽松
     Both mondrians split partition with binary split.
     In strict mondrian, lhs and rhs have not intersection.
     But in relaxed mondrian, lhs may be have intersection with rhs.
@@ -322,7 +328,7 @@ def mondrian(data, k, relax=False, QI_num=-1):
     high = [(len(t) - 1) for t in QI_ORDER]
     whole_partition = Partition(data, low, high)
     # begin mondrian
-    start_time = time.time()
+    start_time = time.time()#记录时间
     if relax:
         # relax model
         anonymize_relaxed(whole_partition)
@@ -332,6 +338,7 @@ def mondrian(data, k, relax=False, QI_num=-1):
     rtime = float(time.time() - start_time)
     # generalization result and
     # evaluation information loss
+    # 归纳结果和评估信息损失
     ncp = 0.0
     dp = 0.0
     for partition in RESULT:

@@ -1,5 +1,5 @@
 """
-run mondrian with given parameters
+run mondrian with given parameters参数
 """
 
 # !/usr/bin/env python
@@ -17,15 +17,17 @@ INTUITIVE_ORDER = None
 def write_to_file(result):
     """
     write the anonymized result to anonymized.data
+    将加密后的数据写入anonymized.data文件
     """
     with open("data/anonymized.data", "w") as output:
         for r in result:
             output.write(';'.join(r) + '\n')
 
 
-def get_result_one(data, k=10):
+def get_result_one(data, k=10):#设置K的值
     """
     run mondrian for one time, with k=10
+    设置K度为10，调用加密函数进行一次加密
     """
     print("K=%d" % k)
     data_back = copy.deepcopy(data)
@@ -46,6 +48,7 @@ def get_result_one(data, k=10):
 def get_result_k(data):
     """
     change k, while fixing QD and size of data set
+    更改k，同时固定QD和数据集的大小
     """
     data_back = copy.deepcopy(data)
     for k in range(5, 105, 5):
@@ -63,6 +66,8 @@ def get_result_dataset(data, k=10, num_test=10):
     """
     fix k and QI, while changing size of data set
     num_test is the test number.
+    固定k和QI，同时更改数据集
+    num_test的大小是测试编号。
     """
     data_back = copy.deepcopy(data)
     length = len(data_back)
@@ -118,6 +123,10 @@ def covert_to_raw(result, connect_str='~'):
     these values back to they raw values. For example, Female and Male
     may be converted to 0 and 1 during anonymizaiton. Then we need to transform
     them back to original values after anonymization.
+    在预处理期间，使用直观顺序将分类属性转换为数字属性。 
+    此功能会将这些值转换回原始值。 
+    例如，在匿名过程中，女性和男性可能会转换为0和1。 
+    然后，我们需要在匿名化之后将它们转换回原始值。
     """
     covert_result = []
     qi_len = len(INTUITIVE_ORDER)
@@ -151,10 +160,11 @@ if __name__ == '__main__':
         MODEL = sys.argv[1]
         DATA_SELECT = sys.argv[2]
     except IndexError:
-        MODEL = 's'
+        MODEL = 'r'#Model用来选择哪个模式
         DATA_SELECT = 'a'
     INPUT_K = 10
     # read record
+
     if MODEL == 's':
         RELAX = False
     else:
@@ -163,6 +173,7 @@ if __name__ == '__main__':
         print("Relax Mondrian")
     else:
         print("Strict Mondrian")
+    
     if DATA_SELECT == 'i':
         print("INFORMS data")
         DATA = read_informs()
