@@ -33,7 +33,10 @@ def cmp_value(element1, element2):
 
 
 def value(x):
-    '''Return the numeric type that supports addition and subtraction'''
+    '''
+    Return the numeric type that supports addition and subtraction
+    返回支持加减的数值类型
+    '''
     if isinstance(x, (int, float)):
         return float(x)
     elif isinstance(x, datetime):
@@ -76,6 +79,10 @@ def covert_to_raw(result, intuitive_order, delimiter='~'):
     these values back to they raw values. For example, Female and Male
     may be coverted to 0 and 1 during anonymizaiton. Then we need to transform
     them back to original values after anonymization.
+    在预处理期间，使用直观的顺序将分类属性转换为数字属性。 
+    此功能会将这些值转换回原始值。 
+    例如，在匿名过程中，女性和男性可能会改写为0和1。 
+    然后，我们需要在匿名化之后将它们转换回原始值。
     """
     covert_result = []
     qi_len = len(intuitive_order)

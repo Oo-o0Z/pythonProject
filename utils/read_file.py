@@ -2,7 +2,7 @@
 '''
 read csv data, 
 support numeric, category, time date
-
+读取csv数据，支持数字，类别，时间日期
 author : Liu Kun
 date   : 2018-10
 '''

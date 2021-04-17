@@ -16,6 +16,7 @@ USER_ATT = ['DUID', 'PID', 'DUPERSID', 'DOBMM', 'DOBYY', 'SEX', 'RACEX', 'RACEAX
             'Year', 'marry', 'income', 'poverty']
 CONDITION_ATT = ['DUID', 'DUPERSID', 'ICD9CODX', 'year']
 # Only 5 relational attributes and 1 transaction attribute are selected (according to Poulis's paper)
+# 仅选择了5个关系属性和1个交易属性（根据Poulis的论文）
 QI_INDEX = [3, 4, 6, 13, 16]
 __DEBUG = False
 
