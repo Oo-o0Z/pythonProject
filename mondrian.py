@@ -95,7 +95,7 @@ def get_normalized_width(partition, index):
 def choose_dimension(partition):
     """
     choose dim with largest norm_width from all attributes.
-    选择所有分组中范围范围最大的，作为其他所有分组的属性
+    选择所有分组中范围最大的，作为其他所有分组的属性
     This function can be upgraded with other distance function.
     """
     max_width = -1
@@ -108,6 +108,7 @@ def choose_dimension(partition):
             max_width = norm_width
             max_dim = dim
     if max_width > 1:
+        # 用于调式代码，运行到此处暂停
         pdb.set_trace()
     return max_dim
 
