@@ -11,16 +11,16 @@ read adult data set
 # 'capital_loss', 'hours_per_week', 'native_country', 'class']
 # 数据类型有以上这些
 # QID ['age', 'work_class', 'education', 'marital_status', 'race', 'sex', 'native_country']
-# 敏感数据的类型有以上这些
+# 准标识符数据的类型有以上这些
 # SA ['occupation']
-# SA是什么类型？
+# SA是敏感数据
 
 
 ATT_NAME = ['age', 'work_class', 'final_weight', 'education',
             'education_num', 'marital_status', 'occupation', 'relationship',
             'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week',
             'native_country', 'class']
-QI_INDEX = [0, 1, 4, 5, 6, 8, 9, 13]#敏感数据对应的所在行位置，即下文所说数字属性
+QI_INDEX = [0, 1, 4, 5, 6, 8, 9, 13]#准标识符数据对应的所在行位置，即下文所说数字属性
 IS_CAT = [False, True, False, True, True, True, True, True]#？
 SA_INDEX = -1#？
 __DEBUG = False
