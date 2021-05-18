@@ -63,7 +63,7 @@ def get_result_dataset(data, k=10, num_test=10):
     check_time = length / joint
     if length % joint == 0:
         check_time -= 1
-    for i in range(check_time):
+    for i in range(int(check_time)):
         datasets.append(joint * (i + 1))
     datasets.append(length)
     ncp = 0
@@ -120,7 +120,8 @@ def covert_to_raw(result, connect_str='~'):
         for i in range(qi_len):
             if len(INTUITIVE_ORDER[i]) > 0:
                 vtemp = ''
-                if connect_str in record[i]:
+                temp = str(record[i])
+                if connect_str in temp:
                     temp = record[i].split(connect_str)
                     raw_list = []
                     for j in range(int(temp[0]), int(temp[1]) + 1):
