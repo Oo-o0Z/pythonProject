@@ -1,15 +1,7 @@
-"""
-run mondrian with given parameters参数
-"""
-
-# !/usr/bin/env python
-# coding=utf-8
 from mondrian import mondrian
 from utils.read_adult_data import read_data as read_adult
-from utils.read_informs_data import read_data as read_informs
 import sys, copy, random
 
-DATA_SELECT = 'a'
 RELAX = False
 INTUITIVE_ORDER = None
 
@@ -33,11 +25,7 @@ def get_result_one(data, k=10):#设置K的值
     data_back = copy.deepcopy(data)
     result, eval_result = mondrian(data, k, RELAX)
     # Convert numerical values back to categorical values if necessary
-    if DATA_SELECT == 'a':
-        result = covert_to_raw(result)
-    else:
-        for r in result:
-            r[-1] = ','.join(r[-1])
+    result = covert_to_raw(result)
     # write to anonymized.out
     write_to_file(result)
     data = copy.deepcopy(data_back)
@@ -55,8 +43,7 @@ def get_result_k(data):
         print('#' * 30)
         print("K=%d" % k)
         result, eval_result = mondrian(data, k, RELAX)
-        if DATA_SELECT == 'a':
-            result = covert_to_raw(result)
+        result = covert_to_raw(result)
         data = copy.deepcopy(data_back)
         print("NCP %0.2f" % eval_result[0] + "%")
         print("Running time %0.2f" % eval_result[1] + " seconds")
@@ -87,8 +74,7 @@ def get_result_dataset(data, k=10, num_test=10):
         for j in range(num_test):
             temp = random.sample(data, pos)
             result, eval_result = mondrian(temp, k, RELAX)
-            if DATA_SELECT == 'a':
-                result = covert_to_raw(result)
+            result = covert_to_raw(result)
             ncp += eval_result[0]
             rtime += eval_result[1]
             data = copy.deepcopy(data_back)
@@ -109,8 +95,7 @@ def get_result_qi(data, k=10):
         print('#' * 30)
         print("Number of QI=%d" % i)
         result, eval_result = mondrian(data, k, RELAX, i)
-        if DATA_SELECT == 'a':
-            result = covert_to_raw(result)
+        result = covert_to_raw(result)
         data = copy.deepcopy(data_back)
         print("NCP %0.2f" % eval_result[0] + "%")
         print("Running time %0.2f" % eval_result[1] + " seconds")
@@ -158,10 +143,8 @@ if __name__ == '__main__':
     LEN_ARGV = len(sys.argv)
     try:
         MODEL = sys.argv[1]
-        DATA_SELECT = sys.argv[2]
     except IndexError:
         MODEL = 'r'#Model用来选择哪个模式
-        DATA_SELECT = 'a'
     INPUT_K = 10
     # read record
 
@@ -174,18 +157,14 @@ if __name__ == '__main__':
     else:
         print("Strict Mondrian")
     
-    if DATA_SELECT == 'i':
-        print("INFORMS data")
-        DATA = read_informs()
-    else:
-        print("Adult data")
-        # INTUITIVE_ORDER is an intuitive order for
-        # categorical attributes. This order is produced
-        # by the reading (from data set) order.
-        DATA, INTUITIVE_ORDER = read_adult()
-        print(INTUITIVE_ORDER)
-    if LEN_ARGV > 3:
-        FLAG = sys.argv[3]
+    print("Adult data")
+    # INTUITIVE_ORDER is an intuitive order for
+    # categorical attributes. This order is produced
+    # by the reading (from data set) order.
+    DATA, INTUITIVE_ORDER = read_adult()
+    print(INTUITIVE_ORDER)
+    if LEN_ARGV > 2:
+        FLAG = sys.argv[2]
     if FLAG == 'k':
         get_result_k(DATA)
     elif FLAG == 'qi':

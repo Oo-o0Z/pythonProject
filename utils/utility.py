@@ -26,6 +26,7 @@ def cmp_str(element1, element2):
         return cmp(element1, element2)
 
 def cmp_value(element1, element2):
+    # isinstance判断一个对象是否时已知类型
     if isinstance(element1, str):
         return cmp_str(element1, element2)
     else:
@@ -51,6 +52,7 @@ def value(x):
 
 def merge_qi_value(x_left, x_right, connect_str='~'):
     '''Connect the interval boundary value as a generalized interval and return the result as a string
+       将区间边界值连接为广义区间，并以字符串形式返回结果
     return:
         result:string
     '''
