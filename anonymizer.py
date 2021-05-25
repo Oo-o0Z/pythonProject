@@ -1,7 +1,8 @@
 from mondrian import mondrian
 from utils.read_adult_data import read_data as read_adult
 import sys, copy, random
-
+import os
+import psutil 
 RELAX = False
 INTUITIVE_ORDER = None
 
@@ -188,4 +189,8 @@ if __name__ == '__main__':
             print("example: python anonymizer s a 10")
             print("example: python anonymizer s a k")
     # anonymized dataset is stored in result
+    info = psutil.virtual_memory()
+    print ('内存使用：',(psutil.Process(os.getpid()).memory_full_info()).uss /1024. / 1024.,'MB')
     print("Finish Mondrian!!")
+
+
