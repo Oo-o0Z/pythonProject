@@ -31,6 +31,7 @@ def get_result_one(data, k=10):#设置K的值
     write_to_file(result)
     data = copy.deepcopy(data_back)
     print("NCP %0.2f" % eval_result[0] + "%")
+    print ('内存使用：',(psutil.Process(os.getpid()).memory_full_info()).uss /1024. / 1024.,'MB')
     print("Running time %0.2f" % eval_result[1] + " seconds")
 
 
@@ -188,9 +189,7 @@ if __name__ == '__main__':
             print("data: varying size of dataset")
             print("example: python anonymizer s a 10")
             print("example: python anonymizer s a k")
-    # anonymized dataset is stored in result
-    info = psutil.virtual_memory()
-    print ('内存使用：',(psutil.Process(os.getpid()).memory_full_info()).uss /1024. / 1024.,'MB')
+    # anonymized dataset is stored in result    
     print("Finish Mondrian!!")
 
 
