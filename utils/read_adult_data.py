@@ -1,3 +1,5 @@
+from utils.read_config import config
+
 """
 read adult data set
 """
@@ -15,14 +17,15 @@ read adult data set
 # SA ['occupation']
 # SA是敏感数据
 
+config = config()
 
-ATT_NAME = ['age', 'work_class', 'final_weight', 'education',
-            'education_num', 'marital_status', 'occupation', 'relationship',
-            'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week',
-            'native_country', 'class']
-QI_INDEX = [0, 1, 4, 5, 6, 8, 9, 13]#准标识符数据对应的所在行位置，即下文所说数字属性
-IS_CAT = [False, True, False, True, True, True, True, True]#？
-SA_INDEX = -1#？
+# ATT_NAME = ['age', 'work_class', 'final_weight', 'education',
+#             'education_num', 'marital_status', 'occupation', 'relationship',
+#             'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week',
+#             'native_country', 'class']
+QI_INDEX = config.qi_index #准标识符数据对应的所在行位置，即下文所说数字属性
+IS_CAT = config.is_cat #？
+SA_INDEX = config.sa_index #？
 __DEBUG = False
 
 
@@ -52,7 +55,7 @@ def read_data():
         intuitive_dict.append(dict())
         intuitive_number.append(0)
         intuitive_order.append(list())
-    data_file = open('data/adult.data', 'rU')
+    data_file = open(config.data_path, 'rU')
     for line in data_file:
         line = line.strip()
         # strip() 方法用于移除字符串头尾指定的字符（默认为空格或换行符）或字符序列
