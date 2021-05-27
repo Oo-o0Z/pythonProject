@@ -1,4 +1,4 @@
-Mondrian K-Anonymized[![Build Status](https://travis-ci.org/qiyuangong/Mondrian.svg?branch=master)](https://travis-ci.org/qiyuangong/Mondrian)
+Mondrian K-Anonymized
 ===========================
 The project is modified from [Mondrian](https://github.com/qiyuangong/Mondrian)
 
