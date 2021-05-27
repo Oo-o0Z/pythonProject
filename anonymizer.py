@@ -1,8 +1,8 @@
 from mondrian import mondrian
-from utils.read_adult_data import read_data as read_adult
-import sys, copy, random
-import os
-import psutil 
+from utils.read_data import read_data
+from utils.read_config import modeConfig
+import os, copy, random, psutil
+
 RELAX = False
 INTUITIVE_ORDER = None
 
@@ -143,31 +143,37 @@ def covert_to_raw(result, connect_str='~'):
 
 if __name__ == '__main__':
     FLAG = ''
-    LEN_ARGV = len(sys.argv)
-    try:
-        MODEL = sys.argv[1]
-    except IndexError:
-        MODEL = 'r'#Model用来选择哪个模式
+    # LEN_ARGV = len(sys.argv)
+    mode_config = modeConfig()
+
+    # get model from argv
+    # try:
+    #     MODEL = sys.argv[1]
+    # except IndexError:
+    #     MODEL = 'r'#Model用来选择哪个模式
+    # if MODEL == 's':
+    #     RELAX = False
+    # else:
+    #     RELAX = True
+    
     INPUT_K = 10
     # read record
 
-    if MODEL == 's':
-        RELAX = False
-    else:
-        RELAX = True
+    RELAX = True if mode_config.model == "relax" else False
+    
     if RELAX:
         print("Relax Mondrian")
     else:
         print("Strict Mondrian")
     
-    print("Adult data")
+    # print("Adult data")
     # INTUITIVE_ORDER is an intuitive order for
     # categorical attributes. This order is produced
     # by the reading (from data set) order.
-    DATA, INTUITIVE_ORDER = read_adult()
+    DATA, INTUITIVE_ORDER = read_data()
     print(INTUITIVE_ORDER)
-    if LEN_ARGV > 2:
-        FLAG = sys.argv[2]
+
+    FLAG = mode_config.flag
     if FLAG == 'k':
         get_result_k(DATA)
     elif FLAG == 'qi':
@@ -175,21 +181,21 @@ if __name__ == '__main__':
     elif FLAG == 'data':
         get_result_dataset(DATA)
     elif FLAG == '':
-        get_result_one(DATA)
+        get_result_one(DATA, mode_config.k)
     else:
         try:
-            INPUT_K = int(FLAG)
-            get_result_one(DATA, INPUT_K)
+            get_result_one(DATA, 10)
         except ValueError:
-            print("Usage: python anonymizer [r|s] [a | i] [k | qi | data]")
-            print("r: relax mondrian, s: strict mondrian")
-            print("a: adult dataset, i: INFORMS dataset")
-            print("k: varying k")
-            print("qi: varying qi numbers")
-            print("data: varying size of dataset")
-            print("example: python anonymizer s a 10")
-            print("example: python anonymizer s a k")
-    # anonymized dataset is stored in result    
+            print("Config ERROR!")
+            # print("Usage: python anonymizer [r|s] [a | i] [k | qi | data]")
+            # print("r: relax mondrian, s: strict mondrian")
+            # print("a: adult dataset, i: INFORMS dataset")
+            # print("k: varying k")
+            # print("qi: varying qi numbers")
+            # print("data: varying size of dataset")
+            # print("example: python anonymizer s a 10")
+            # print("example: python anonymizer s a k")
+    # anonymized dataset is stored in result
     print("Finish Mondrian!!")
 
 

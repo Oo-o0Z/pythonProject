@@ -1,4 +1,4 @@
-from utils.read_config import config
+from utils.read_config import dataConfig
 
 """
 read adult data set
@@ -17,7 +17,7 @@ read adult data set
 # SA ['occupation']
 # SA是敏感数据
 
-config = config()
+config = dataConfig()
 
 # ATT_NAME = ['age', 'work_class', 'final_weight', 'education',
 #             'education_num', 'marital_status', 'occupation', 'relationship',
