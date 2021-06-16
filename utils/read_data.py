@@ -80,7 +80,7 @@ def read_data():
                     intuitive_number[i] += 1
                     intuitive_order[i].append(temp[index])
             else:
-                ltemp.append(int(temp[index]))
+                ltemp.append(int(float(temp[index])))
         ltemp.append(temp[SA_INDEX])
         data.append(ltemp)
     return data, intuitive_order

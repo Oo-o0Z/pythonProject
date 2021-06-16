@@ -8,11 +8,24 @@ The project is modified from [Mondrian](https://github.com/qiyuangong/Mondrian)
 2. Modify `config.json` as you want.
 3. At path of the project, run `python anonimized.py`.
 
+## Data
 
+Type support (Quasi-identifiers of data)
 
-## config.json
+| Data Type | Support        |
+| --------- | -------------- |
+| String    | Yes            |
+| Float     | Yes            |
+| Int       | Yes            |
+| Date      | Convert to Int |
+| Boolean   | Yes            |
 
-The project use json as the configuration file.
+- Please convert Date to Int before anonymize, if you want to generalize it in years, just keep year (e.g. 1990-05-05 -> 1990).
+- Confirm that there is no `,` in your data, which will be treated as a separator.
+
+## Config
+
+The project use json as the configuration file. (`Mondrian/config.json`)
 
 Example:
 
